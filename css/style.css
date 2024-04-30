@@ -1,0 +1,58 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: aquamarine;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+header{
+    font-size: 40px;
+    border-bottom: 1px solid black;
+    text-align: center;
+    padding: 10px;
+}
+#main{
+    background-color: white;
+    width: 1200px;
+    margin-left: 250px;
+    height: 700px;
+    margin-top: 65px;
+    position: absolute;
+}
+#endGame{
+    position: absolute;
+    background-color: bisque;
+    border: 2px solid black;
+    width: 700px;
+    margin-left: 500px;
+    height: 600px;
+    margin-top: 115px;
+}
+.blured{
+    filter: blur(10px);
+}
+#endGame{
+    margin-left: 500px;
+}
+#endGame div{
+    margin: 10%;
+    text-align: center  ;
+    padding-top: 15px;
+    background: white;
+    width: 80%;
+    height: 30px;
+    border: 1px solid black;
+}
+#score{
+    text-align: left !important;
+    padding-left: 10px;
+}
+#restart{
+    margin-left: 10%;
+    padding-top: 40px !important;
+    text-align: center;
+    background: white;
+    width: 80%;
+    height: 60px !important;
+}
