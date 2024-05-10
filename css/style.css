@@ -1,3 +1,6 @@
+:root{
+    --bord: solid black;
+}
 body{
     margin: 0;
     padding: 0;
@@ -8,7 +11,7 @@ body{
 }
 header{
     font-size: 40px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px var(--bord);
     text-align: center;
     padding: 10px;
 }
@@ -17,32 +20,45 @@ header{
     width: 1200px;
     margin-left: 250px;
     height: 700px;
-    margin-top: 65px;
+    margin-top: 35px;
     position: absolute;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 600px;
+    background-image: url("/img/background-day-big.jpg");
+}
+#canvas{
+    box-sizing: border-box;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: var(--bord);
+    width: 100%;
+    height: 100%;
 }
 #endGame{
     position: absolute;
     background-color: bisque;
-    border: 2px solid black;
+    border: 2px var(--bord);
     width: 700px;
     margin-left: 500px;
     height: 600px;
     margin-top: 115px;
+    z-index: 1;
 }
 .blured{
     filter: blur(10px);
 }
-#endGame{
-    margin-left: 500px;
-}
 #endGame div{
     margin: 10%;
-    text-align: center  ;
+    text-align: center;
     padding-top: 15px;
     background: white;
     width: 80%;
     height: 30px;
-    border: 1px solid black;
+    border: 1px var(--bord);
 }
 #score{
     text-align: left !important;
