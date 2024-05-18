@@ -16,6 +16,11 @@ window.onload = function(){
     restart=document.getElementById('restart');
     canvas=document.getElementById('canvas');
     context=canvas.getContext('2d');
+    context.mozImageSmoothingEnabled = false;
+    context.webkitImageSmoothingEnabled = false;
+    context.msImageSmoothingEnabled = false;
+    context.imageSmoothingEnabled = false;
+
     firstPipeY=Math.random()*(canvas.height-pipeGap*2)+pipeGap+5;
     secondPipeY=Math.random()*(canvas.height-pipeGap*2)+pipeGap+5;
     thirdPipeY=Math.random()*(canvas.height-pipeGap*2)+pipeGap+5;
@@ -97,7 +102,7 @@ function impact(){
 
     const firstBottomPipe={
         x:firstPipeX,
-        y:firstPipeY-pipeGap,
+        y:firstPipeY,
         width:pipeWidth,
         height:canvas.height-firstPipeY-pipeGap
     };
@@ -111,7 +116,7 @@ function impact(){
 
     const secondBottomPipe={
         x:secondPipeX,
-        y:secondPipeY-pipeGap,
+        y:secondPipeY,
         width:pipeWidth,
         height:canvas.height-secondPipeY-pipeGap
     };
@@ -125,7 +130,7 @@ function impact(){
 
     const thirdBottomPipe={
         x:thirdPipeX,
-        y:thirdPipeY-pipeGap,
+        y:thirdPipeY,
         width:pipeWidth,
         height:canvas.height-thirdPipeY-pipeGap
     };
@@ -139,72 +144,77 @@ function impact(){
 
     const fourBottomPipe={
         x:fourPipeX,
-        y:fourPipeY-pipeGap,
+        y:fourPipeY,
         width:pipeWidth,
         height:canvas.height-fourPipeY-pipeGap
     };
 
     if(
         birdCollision.x+bird.width>firstTopPipe.x &&
-        birdCollision.x>firstTopPipe.x+firstTopPipe.width &&
-        birdCollision.yfirstTopPipe.y
+        birdCollision.x<firstTopPipe.x+firstTopPipe.width &&
+        birdCollision.y-5<firstTopPipe.y
     ){
+        console.log("top1",  birdCollision.y-10,firstTopPipe.y)
         return true;
     }
 
     if(
         birdCollision.x+bird.width>secondTopPipe.x &&
-        birdCollision.x>secondTopPipe.x+secondTopPipe.width &&
-        birdCollision.y-bird.height<secondTopPipe.y
+        birdCollision.x<secondTopPipe.x+secondTopPipe.width &&
+        birdCollision.y-5<secondTopPipe.y
     ){
         return true;
     }
 
     if(
         birdCollision.x+bird.width>thirdTopPipe.x &&
-        birdCollision.x>thirdTopPipe.x+thirdTopPipe.width &&
-        birdCollision.y-bird.height<thirdTopPipe.y
+        birdCollision.x<thirdTopPipe.x+thirdTopPipe.width &&
+        birdCollision.y-5<thirdTopPipe.y
     ){
         return true;
     }
 
     if(
         birdCollision.x+bird.width>fourTopPipe.x &&
-        birdCollision.x>fourTopPipe.x+fourTopPipe.width &&
-        birdCollision.y-bird.height<fourTopPipe.y
+        birdCollision.x<fourTopPipe.x+fourTopPipe.width &&
+        birdCollision.y-5<fourTopPipe.y
     ){
         return true;
     }
 
     if(
         birdCollision.x+bird.width>firstBottomPipe.x &&
-        birdCollision.x>firstBottomPipe.x+firstBottomPipe.width &&
-        birdCollision.y+bird.height*2>firstBottomPipe.y
+        birdCollision.x<firstBottomPipe.x+firstBottomPipe.width &&
+        birdCollision.y-15>firstBottomPipe.y+bird.height
     ){
         return true;
     }
 
     if(
         birdCollision.x+bird.width>secondBottomPipe.x &&
-        birdCollision.x>secondBottomPipe.x+secondBottomPipe.width &&
-        birdCollision.y+bird.height*2>secondBottomPipe.y
+        birdCollision.x<secondBottomPipe.x+secondBottomPipe.width &&
+        birdCollision.y-15>secondBottomPipe.y+bird.height
     ){
         return true;
     }
 
     if(
         birdCollision.x+bird.width>thirdBottomPipe.x &&
-        birdCollision.x>thirdBottomPipe.x+thirdBottomPipe.width &&
-        birdCollision.y+bird.height*2>thirdBottomPipe.y
+        birdCollision.x<thirdBottomPipe.x+thirdBottomPipe.width &&
+        birdCollision.y-15>thirdBottomPipe.y+bird.height
     ){
         return true;
     }
 
     if(
         birdCollision.x+bird.width>fourBottomPipe.x &&
-        birdCollision.x>fourBottomPipe.x+fourBottomPipe.width &&
-        birdCollision.y+bird.height*2>fourBottomPipe.y
+        birdCollision.x<fourBottomPipe.x+fourBottomPipe.width &&
+        birdCollision.y-15>fourBottomPipe.y+bird.height
     ){
+        return true;
+    }
+
+    if(birdCollision.y<0||birdCollision.y>canvas.height-bird.height){
         return true;
     }
     return false;
@@ -216,7 +226,6 @@ function game(){
     context.drawImage(bird,birdX,birdY);
 
     drawPipes();
-    console.log(bird.width)
 
     if(impact()){
         return
