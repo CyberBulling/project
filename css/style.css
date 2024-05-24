@@ -17,23 +17,21 @@ header{
 }
 #main{
     background-color: white;
-    width: 1200px;
-    margin-left: 250px;
-    height: 700px;
-    margin-top: 35px;
+    width: 100vw;
+    height: 100vh;
     position: absolute;
     z-index: 2;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 600px;
+    min-height: 700px;
+    min-width:1200px;
+    
     background-image: url("/img/background-day-big.jpg");
 }
 #canvas{
+    height: 90vh;
     box-sizing: border-box;
     display: block;
-    background-repeat: no-repeat;
-    background-size: cover;
     border: var(--bord);
 }
 #endGame{
@@ -41,9 +39,9 @@ header{
     background-color: bisque;
     border: 2px var(--bord);
     width: 700px;
-    margin-left: 500px;
+    margin-left: 350px;
     height: 600px;
-    margin-top: 115px;
+    margin-top: 85px;
     z-index: 1;
 }
 .blured{

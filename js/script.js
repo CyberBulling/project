@@ -1,7 +1,7 @@
-let mainWindow, pauseWindow, canvas,scoreWindow,score,leaderboard,leader,settings,restart, context;
-let velocity=0,acceleration=0.2, birdX,birdY;
-let pipeWidth=80, pipeGap=120, firstPipeX=900,firstPipeY,secondPipeX=1200, thirdPipeX=1500,fourPipeX=1800, secondPipeY,thirdPipeY,fourPipeY, pipeSpeed=2;//change gap and speed for difficulty level
-const bird=new Image(), pipeTop=new Image(), pipeBottom=new Image();
+let mainWindow,pauseWindow,canvas,scoreWindow,leaderboard,settings,restart,context, scoreInput;
+let velocity=0,acceleration=0.2,score=0,birdX,birdY, scoreTmp=0, firstPipeScore, alsoPipeScore;
+let pipeWidth=80,pipeGap=120,firstPipeX=900,secondPipeX=1200,thirdPipeX=1500,fourPipeX=1800,firstPipeY,secondPipeY,thirdPipeY,fourPipeY,pipeSpeed=2;//change gap and speed for difficulty level
+const bird=new Image(),pipeTop=new Image(),pipeBottom=new Image();
 const approach=-7;//change for difficulty
 bird.src='/img/bird.png';
 pipeTop.src='/img/pipeTop.png';
@@ -11,15 +11,12 @@ window.onload = function(){
     mainWindow =document.getElementById('main');
     pauseWindow=document.getElementById('endGame');
     scoreWindow=document.getElementById('score');
-    leaderboard=document.getElementById('leaderbord');
+    scoreInput=document.getElementById('scoreInput');
+    leaderboard=document.getElementById('leaderboard');
     settings=document.getElementById('settings');
     restart=document.getElementById('restart');
     canvas=document.getElementById('canvas');
     context=canvas.getContext('2d');
-    context.mozImageSmoothingEnabled = false;
-    context.webkitImageSmoothingEnabled = false;
-    context.msImageSmoothingEnabled = false;
-    context.imageSmoothingEnabled = false;
 
     firstPipeY=Math.random()*(canvas.height-pipeGap*2)+pipeGap+5;
     secondPipeY=Math.random()*(canvas.height-pipeGap*2)+pipeGap+5;
@@ -27,23 +24,32 @@ window.onload = function(){
     fourPipeY=Math.random()*(canvas.height-pipeGap*2)+pipeGap+5;
     birdX=canvas.width/3;
     birdY=canvas.height/2;
-    /*leaderboard.addEventListener('click',showLeaders);
+    firstPipeScore=(firstPipeX-birdX+pipeWidth)/2;
+    alsoPipeScore=(secondPipeX-firstPipeX)/2;
+
+    leaderboard.addEventListener('click',showLeaders);
     settings.addEventListener('click',showSettings);
-    restart.addEventListener('click',restartGame);*/
-    window.addEventListener('load',game());
+    restart.addEventListener('click',restartGame);
+    //window.addEventListener('load',game());
 }
 
-/*function showLeaders(){
-
+function showLeaders(){
+    console.log('a');
 }
 
 function showSettings(){
-
+    console.log('b');
 }
 
 function restartGame(){
-
-}*/
+    velocity=0, score=0;
+    scoreInput.innerHTML=score;
+    birdY=canvas.height/2;
+    firstPipeX=900,secondPipeX=1200, thirdPipeX=1500,fourPipeX=1800;
+    mainWindow.style.zIndex=2;
+    mainWindow.classList.remove('blured');
+    game();
+}
 
 document.body.addEventListener('keydown',(event)=>{
     event.stopPropagation();
@@ -154,7 +160,6 @@ function impact(){
         birdCollision.x<firstTopPipe.x+firstTopPipe.width &&
         birdCollision.y-5<firstTopPipe.y
     ){
-        console.log("top1",  birdCollision.y-10,firstTopPipe.y)
         return true;
     }
 
@@ -228,7 +233,21 @@ function game(){
     drawPipes();
 
     if(impact()){
+        mainWindow.style.zIndex=1;
+        mainWindow.classList.add('blured');
         return
+    }
+    
+    scoreTmp++;
+    if(score==0&&scoreTmp==firstPipeScore){
+        scoreTmp=0;
+        score++;
+        scoreInput.innerHTML=score;
+    }
+    if(score>0&&scoreTmp==alsoPipeScore){
+        scoreTmp=0;
+        score++;
+        scoreInput.innerHTML=score;
     }
 
     velocity+=acceleration;
