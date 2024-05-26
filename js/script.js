@@ -1,9 +1,11 @@
 let mainWindow,pauseWindow,canvas,scoreWindow,leaderboard,settings,restart,context, scoreInput;
-let velocity=0,acceleration=0.2,score=0,birdX,birdY, scoreTmp=0, firstPipeScore, alsoPipeScore;
+let velocity=0,acceleration=0.2,score=0,birdX,birdY, scoreTmp=0, firstPipeScore, alsoPipeScore, tagName="Player 1";
 let pipeWidth=80,pipeGap=120,firstPipeX=900,secondPipeX=1200,thirdPipeX=1500,fourPipeX=1800,firstPipeY,secondPipeY,thirdPipeY,fourPipeY,pipeSpeed=2;//change gap and speed for difficulty level
-const bird=new Image(),pipeTop=new Image(),pipeBottom=new Image();
+let leaderboardMassive=[];
+const bird=new Image(),pipeTop=new Image(),pipeBottom=new Image(), backgroundImage=new Image();
 const approach=-7;//change for difficulty
 bird.src='/img/bird.png';
+backgroundImage.src='/img/background-day-big.jpg';
 pipeTop.src='/img/pipeTop.png';
 pipeBottom.src='/img/pipeBottom.png';
 
@@ -24,16 +26,30 @@ window.onload = function(){
     fourPipeY=Math.random()*(canvas.height-pipeGap*2)+pipeGap+5;
     birdX=canvas.width/3;
     birdY=canvas.height/2;
-    firstPipeScore=(firstPipeX-birdX+pipeWidth)/2;
-    alsoPipeScore=(secondPipeX-firstPipeX)/2;
+    firstPipeScore=(firstPipeX-birdX+pipeWidth)/2+bird.width;
+    alsoPipeScore=(secondPipeX-firstPipeX)/2+bird.width;
 
     leaderboard.addEventListener('click',showLeaders);
     settings.addEventListener('click',showSettings);
     restart.addEventListener('click',restartGame);
-    //window.addEventListener('load',game());
+    window.addEventListener('load',game());
+}
+
+function compareNumbers(a, b) {
+    return a - b;
 }
 
 function showLeaders(){
+    leaderboardMassive.sort(function(a,b){return b.score-a.score});
+    const listOfLeaders=document.createElement('div');
+    listOfLeaders.classList.add('leaders');
+    const list=document.createElement('ol');
+    listOfLeaders.appendChild(list);
+    for(let i=0;i<leaderboardMassive.length;i++){
+        const leader=document.createElement('li');
+        leader.classList.add('leader');
+        leader.textContent=leaderboardMassive[i].tagName+": "+leaderboardMassive[i].score;
+    }
     console.log('a');
 }
 
@@ -228,6 +244,7 @@ function impact(){
 
 function game(){
     context.clearRect(0,0,canvas.width,canvas.height);
+    context.drawImage(backgroundImage,0,0,canvas.width,canvas.height);
     context.drawImage(bird,birdX,birdY);
 
     drawPipes();
@@ -235,6 +252,7 @@ function game(){
     if(impact()){
         mainWindow.style.zIndex=1;
         mainWindow.classList.add('blured');
+        leaderboardMassive.push({name: tagName,score: score});
         return
     }
     

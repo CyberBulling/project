@@ -1,10 +1,11 @@
 :root{
     --bord: solid black;
+    --bg-color: bisque;
 }
 body{
     margin: 0;
     padding: 0;
-    background-color: aquamarine;
+    background-color:bisque;
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -16,17 +17,14 @@ header{
     padding: 10px;
 }
 #main{
-    background-color: white;
+    background-color: var(--bg-color);
     width: 100vw;
     height: 100vh;
     position: absolute;
     z-index: 2;
     display: flex;
     justify-content: center;
-    min-height: 700px;
-    min-width:1200px;
-    
-    background-image: url("/img/background-day-big.jpg");
+    align-items: center;
 }
 #canvas{
     height: 90vh;
@@ -36,12 +34,12 @@ header{
 }
 #endGame{
     position: absolute;
-    background-color: bisque;
+    background-color: var(--bg-color);
     border: 2px var(--bord);
-    width: 700px;
-    margin-left: 350px;
-    height: 600px;
-    margin-top: 85px;
+    width: 50vw;
+    margin-left: 25vw;
+    height: 80vh;
+    margin-top: 10vh;
     z-index: 1;
 }
 .blured{
@@ -64,7 +62,17 @@ header{
     margin-left: 10%;
     padding-top: 40px !important;
     text-align: center;
-    background: white;
+    background-color: var(--bg-color);
     width: 80%;
     height: 60px !important;
+}
+.leaders{
+    position: absolute;
+    background-color: var(--bg-color);
+    border: 2px var(--bord);
+    width: 50vw;
+    margin-left: 25vw;
+    height: 80vh;
+    margin-top: 10vh;
+    z-index: 1;
 }
