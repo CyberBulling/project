@@ -130,6 +130,7 @@ function showLeaders(){
         sc.textContent=leaderBoardMassive[i].score;
         leader.append(tn,diff,sc);
         leader.classList.add('leader');
+        list.classList.remove('hello');
         list.appendChild(leader);
     }
     leaderboard.appendChild(exit);
@@ -165,6 +166,7 @@ function showLeaders2(){
         sc.textContent=leaderBoardMassive[i].score;
         leader.append(tn,diff,sc);
         leader.classList.add('leader');
+        list.classList.add('hello');
         list.appendChild(leader);
     }
     leaderboard.appendChild(exit);
@@ -275,6 +277,7 @@ function showSettings(){
     settingsWindow.appendChild(difficulty);
     settingsWindow.appendChild(theme);
     settingsWindow.appendChild(exit);
+    settingsWindow.classList.remove('hello');
 }
 
 function showSettings2(){
@@ -382,8 +385,10 @@ function showSettings2(){
     settingsWindow.appendChild(difficulty);
     settingsWindow.appendChild(theme);
     settingsWindow.appendChild(exit);
+    settingsWindow.classList.add('hello');
 }
 function restartGame(){
+    canvas.style.border='var(--bord)';
     pauseWindow.style.zIndex=-1;
     helloWindow.style.zIndex=-1;
     scoreInput.innerHTML=scoreInput.textContent.slice(0,12)+Number(score);
@@ -582,7 +587,6 @@ function game(){
     context.clearRect(0,0,canvas.width,canvas.height);
     context.drawImage(backgroundImage,0,0,canvas.width,canvas.height);
     context.drawImage(bird,birdX,birdY);
-    console.log(score);
     drawPipes();
 
     if(impact()){
@@ -599,12 +603,11 @@ function game(){
     }
     
     scoreTmp++;
-    if(score==0&&scoreTmp==firstPipeScore){
+    if(score==0&&scoreTmp>=firstPipeScore&&birdX>firstPipeX){
         scoreTmp=0;
         score++;
-        
     }
-    if(score>0&&scoreTmp==alsoPipeScore){
+    if(score>0&&scoreTmp>=alsoPipeScore&&(birdX>firstPipeX||birdX>secondPipeX||birdX>fourPipeX||birdX>thirdPipeX)){
         scoreTmp=0;
         score++;
     }
